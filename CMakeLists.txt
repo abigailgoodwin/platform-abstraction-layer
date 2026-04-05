@@ -46,6 +46,13 @@ endif()
  
 message(STATUS "[PAL] Building for platform: ${PAL_PLATFORM}")
 
+# Configure our constants based on the platform:
+include(cmake/platforms/${PAL_PLATFORM}.cmake)
+configure_file(
+    include/pal/pal_config.h.in
+    ${CMAKE_CURRENT_BINARY_DIR}/include/pal/pal_config.h
+)
+
 #-------------------------------------------------------------------------------
 # Build Options
 #-------------------------------------------------------------------------------
@@ -55,22 +62,28 @@ option(PAL_BUILD_TESTS "Builds the unit tests." ON)
 # Compile Definitions
 #-------------------------------------------------------------------------------
 add_library(pal_compile_options INTERFACE)
+
+target_include_directories(pal_compile_options
+    INTERFACE
+        ${CMAKE_CURRENT_BINARY_DIR}/include    
+)
  
-target_compile_options(pal_compile_options INTERFACE
-    $<$<C_COMPILER_ID:GNU,Clang>:
-        -Wall
-        -Werror
-        -Wconversion
-        -Wstrict-prototypes
-        -Wmissing-prototypes
-        -Wpedantic
-        -Wundef
-        -Wextra
-        -Wshadow
-        -Wdouble-promotion
-        -Wformat=2
-        -fno-common
-    >
+target_compile_options(pal_compile_options
+    INTERFACE
+        $<$<C_COMPILER_ID:GNU,Clang>:
+            -Wall
+            -Werror
+            -Wconversion
+            -Wstrict-prototypes
+            -Wmissing-prototypes
+            -Wpedantic
+            -Wundef
+            -Wextra
+            -Wshadow
+            -Wdouble-promotion
+            -Wformat=2
+            -fno-common
+        >
 )
 
 #-------------------------------------------------------------------------------

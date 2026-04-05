@@ -10,13 +10,13 @@
  *
  */
 /*----------------------------------------------------------------------------*/
+#ifndef PAL_STATUS_H
+#define PAL_STATUS_H
+
 #ifdef __cplusplus
 extern "C"
 {
 #endif
-/*----------------------------------------------------------------------------*/
-#ifndef PAL_STATUS_H
-#define PAL_STATUS_H
 /*--------------------------------Includes------------------------------------*/
 #include "stdint.h"
 /*-------------------------------Definitions----------------------------------*/
@@ -27,38 +27,38 @@ extern "C"
  */
 #define PAL_MAX_STATUS_MSG_LEN 64
 
-    /**
-     * @brief Defines the status codes available in the system.
-     *
-     */
-    typedef enum PAL_StatusCode_t
-    {
-        PAL_OK,
-        PAL_ERROR,
-        PAL_TIMEOUT,
-        PAL_STATUS_COUNT
-    } PAL_StatusCode_t;
+/**
+ * @brief Defines the status codes available in the system.
+ *
+ */
+typedef enum pal_status_code_t
+{
+    PAL_OK,
+    PAL_ERROR,
+    PAL_TIMEOUT,
+    PAL_STATUS_COUNT
+} pal_status_code_t;
 
-    /**
-     * @brief Defines the common error type used across the system.
-     *
-     */
-    typedef struct PALStatus_t
-    {
-        PAL_StatusCode_t status;
-        char message[PAL_MAX_STATUS_MSG_LEN];
-    } PALStatus_t;
+/**
+ * @brief Defines the common error type used across the system.
+ *
+ */
+typedef struct pal_status_t
+{
+    pal_status_code_t status;
+    char message[PAL_MAX_STATUS_MSG_LEN];
+} pal_status_t;
 
-    /**
-     * @brief Initializes the status struct to a default state.
-     * @details Sets the status to OK and sets the message string to null
-     * terminators.
-     *
-     * @param status The status object to initialize.
-     */
-    void pal_status_init(PALStatus_t* const status);
+/**
+ * @brief Initializes the status struct to a default state.
+ * @details Sets the status to OK and sets the message string to null
+ * terminators.
+ *
+ * @param status The status object to initialize.
+ */
+void pal_status_init(pal_status_t* const status);
 
-#endif /* PAL_STATUS_H */
 #ifdef __cplusplus
 }
-#endif
+#endif  // __cplusplus
+#endif  // PAL_STATUS_H

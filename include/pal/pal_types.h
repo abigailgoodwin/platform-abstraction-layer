@@ -16,6 +16,13 @@
 extern "C"
 {
 #endif
+/*--------------------------------Includes------------------------------------*/
+// C Includes:
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
+
+/*-------------------------------Definitions----------------------------------*/
 
 #ifndef NULL
 #define NULL ((void *)0)
@@ -23,5 +30,5 @@ extern "C"
 
 #ifdef __cplusplus
 }
-#endif // __cplusplus
-#endif // PAL_TYPES_H
+#endif  // __cplusplus
+#endif  // PAL_TYPES_H

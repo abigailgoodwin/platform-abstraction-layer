@@ -25,7 +25,7 @@
  *
  * @param status The status object to initialize.
  */
-void pal_status_init(PALStatus_t* const status)
+void pal_status_init(pal_status_t* const status)
 {
     if (NULL == status)
     {

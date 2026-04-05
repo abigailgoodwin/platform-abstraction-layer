@@ -48,7 +48,7 @@ void tearDown(void)
 void test_init_status(void)
 {
     // Create a status struct and fill it with garbage:
-    PALStatus_t status;
+    pal_status_t status;
     status.status = PAL_ERROR;
     memset(status.message, 'a', PAL_MAX_STATUS_MSG_LEN);
 
