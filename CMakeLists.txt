@@ -74,5 +74,6 @@ add_subdirectory(source)
 
  if(PAL_BUILD_TESTS)
     enable_testing()
+    add_subdirectory(submodules)
     add_subdirectory(tests)
 endif()
