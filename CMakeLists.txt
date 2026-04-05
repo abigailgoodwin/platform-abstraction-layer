@@ -59,6 +59,12 @@ add_library(pal_compile_options INTERFACE)
 target_compile_options(pal_compile_options INTERFACE
     $<$<C_COMPILER_ID:GNU,Clang>:
         -Wall
+        -Werror
+        -Wconversion
+        -Wstrict-prototypes
+        -Wmissing-prototypes
+        -Wpedantic
+        -Wundef
         -Wextra
         -Wshadow
         -Wdouble-promotion
