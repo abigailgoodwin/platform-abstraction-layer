@@ -32,6 +32,10 @@ void pal_status_init(PALStatus_t* const status)
         return;
     }
 
+    // Set our status code to OK:
+    status->status = PAL_OK;
+
+    // Clear out our message:
     for (uint8_t index = 0U; index < PAL_MAX_STATUS_MSG_LEN; index++)
     {
         status->message[index] = 0;

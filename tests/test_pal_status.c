@@ -57,6 +57,8 @@ void test_init_status(void)
 
     // Verify that our status code is the default (OK) and our message
     // is clear:
+    TEST_ASSERT_EQUAL(status.status, PAL_OK);
+    TEST_ASSERT_EACH_EQUAL_INT8(0, status.message, PAL_MAX_STATUS_MSG_LEN);
 }
 
 /**

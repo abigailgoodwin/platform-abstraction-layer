@@ -42,3 +42,6 @@
 
 # Ignore the build dir:
 build/
+
+# Ignore .vscode artifacts (for now):
+.vscode
