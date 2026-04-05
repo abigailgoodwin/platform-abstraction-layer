@@ -14,7 +14,7 @@
 extern "C"
 {
 #endif
-    /*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 #ifndef PAL_STATUS_H
 #define PAL_STATUS_H
 /*--------------------------------Includes------------------------------------*/
@@ -51,11 +51,12 @@ extern "C"
 
     /**
      * @brief Initializes the status struct to a default state.
-     * @details Sets the status to OK and sets the message string to null terminators.
+     * @details Sets the status to OK and sets the message string to null
+     * terminators.
      *
      * @param status The status object to initialize.
      */
-    void pal_status_init(PALStatus_t *const status);
+    void pal_status_init(PALStatus_t* const status);
 
 #endif /* PAL_STATUS_H */
 #ifdef __cplusplus
