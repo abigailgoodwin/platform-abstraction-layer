@@ -19,32 +19,11 @@ extern "C"
 /*-------------------------------Definitions----------------------------------*/
 
 /**
- * @brief Defines the expected size of the PAL thread attribute data structure.
- * @details This accounts for the platform-specific threading library sizes.
- * 
- */
-#define PAL_THREAD_ATTR_SIZE @PAL_THREAD_ATTR_SIZE@
-
-/**
- * @brief Defines the alignment of the PAL thread attribute data structure.
- * @details This accounts for platform-specific alignment.
- * 
- */
-#define PAL_THREAD_ATTR_ALIGN @PAL_THREAD_ATTR_ALIGN@
-
-/**
  * @brief Defines the expected size of the PAL thread type.
  * @details This accounts for the platform-specific threading library sizes.
  * 
  */
 #define PAL_THREAD_SIZE @PAL_THREAD_SIZE@
-
-/**
- * @brief Defines the alignment of the PAL thread attribute data structure.
- * @details This accounts for platform-specific alignment.
- * 
- */
-#define PAL_THREAD_ALIGN @PAL_THREAD_ALIGN@
 
 #ifdef __cplusplus
 }

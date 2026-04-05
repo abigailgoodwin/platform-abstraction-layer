@@ -53,8 +53,8 @@ typedef struct pal_thread_attrs_t
  */
 typedef struct pal_thread_t
 {
-    uint8_t _tdata[PAL_THREAD_SIZE]; /** Contains the underlying thread data
-                                        structure. */
+    _Alignas(max_align_t) uint8_t _tdata[PAL_THREAD_SIZE]; /** Contains the
+                                        underlying thread data structure. */
 } pal_thread_t;
 
 /**

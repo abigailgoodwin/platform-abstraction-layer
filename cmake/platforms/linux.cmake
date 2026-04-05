@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MIT
 #-------------------------------------------------------------------------------
 # Contains platform-specific sizing and alignment information.
-set(PAL_THREAD_ATTR_SIZE 48)
-set(PAL_THREAD_ATTR_ALIGN 8)
-set(PAL_THREAD_SIZE 48)
-set(PAL_THREAD_ALIGN 8)
+include(CheckTypeSize)
+set(CMAKE_EXTRA_INCLUDE_FILES "pthread.h")
+check_type_size("pthread_t" PAL_THREAD_SIZE LANGUAGE C)
+check_type_size("pthread_attr_t" PAL_THREAD_SIZE LANGUAGE C)

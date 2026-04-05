@@ -18,6 +18,7 @@ extern "C"
 #endif
 /*--------------------------------Includes------------------------------------*/
 // C Includes:
+#include <stdalign.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
