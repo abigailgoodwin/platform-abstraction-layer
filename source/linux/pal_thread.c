@@ -95,14 +95,13 @@ static pal_status_code_t get_pthread_attr(
     return status;
 }
 
-pal_status_t pal_thread_init(pal_thread_t* const thread,
-                             const pal_thread_attrs_t* const attrs)
+pal_status_t pal_thread_init(pal_thread_t* const thread)
 {
     pal_status_t status;
     pal_status_init(&status);
 
     // Exit early if any of our inputs are NULL:
-    if ((NULL == thread) || (NULL == attrs))
+    if (NULL == thread)
     {
         status.status = PAL_ERROR;
         strncpy(status.message, "Passed in attributes are NULL.",
@@ -111,12 +110,20 @@ pal_status_t pal_thread_init(pal_thread_t* const thread,
         return status;
     }
 
-    // First, convert out PAL attributes to pthread attributes:
-    pthread_attr_t attributes;
-    status.status = get_pthread_attr(attrs, &attributes);
+    // First, initialize our attributes to their defaults:
+    status = pal_thread_attr_init(&thread->attributes);
 
-    // If successful, populate our PAL thread body with a pthread_t object:
+    if (status.status == PAL_OK)
+    {
+        // Then, clear out the buffer that will contain our actual thread
+        // object:
+        for (size_t index = 0U; index < PAL_THREAD_SIZE; index++)
+        {
+            thread->_tdata[index] = 0;
+        }
+    }
 
+    // Return any generated errors:
     return status;
 }
 
@@ -125,19 +132,59 @@ pal_status_t pal_thread_create(pal_thread_t* const thread)
     pal_status_t status;
     pal_status_init(&status);
 
-    // TODO
-    (void)thread;
+    // Exit early if any of our inputs are NULL:
+    if (NULL == thread)
+    {
+        status.status = PAL_ERROR;
+        strncpy(status.message, "Passed in thread is NULL.",
+                sizeof(status.message) - 1);
+
+        return status;
+    }
+
+    // Convert our PAL thread attributes to pthread attributes:
+    pthread_attr_t pthread_attrs;
+    status.status = get_pthread_attr(&thread->attributes, &pthread_attrs);
+
+    // If successful, spawn our thread using pthreads:
+    if (status.status == PAL_OK)
+    {
+        pthread_t* pthread = (pthread_t*)thread->_tdata;
+
+        // May need to be ironed out. Unclear if this is a safe cast:
+        int result =
+            pthread_create(pthread, &pthread_attrs, thread->attributes.function,
+                           thread->attributes.args);
+
+        if (result != 0)
+        {
+            status.status = PAL_ERROR;
+            strncpy(status.message, "Failed to create thread.",
+                    sizeof(status.message) - 1);
+        }
+    }
 
     return status;
 }
 
-pal_status_t pal_thread_join(pal_thread_t* const thread)
+pal_status_t pal_thread_join(pal_thread_t* const thread, void** result)
 {
     pal_status_t status;
     pal_status_init(&status);
 
-    // TODO
-    (void)thread;
+    // Early return if our thread is NULL:
+    if ((NULL == thread) || (NULL == (pthread_t*)thread->_tdata))
+    {
+        status.status = PAL_ERROR;
+        strncpy(status.message, "Passed in thread is NULL.",
+                sizeof(status.message) - 1);
+
+        return status;
+    }
+
+    // Get our pthread out of the PAL thread:
+    pthread_t* pthread = (pthread_t*)thread->_tdata;
+    pthread_join(*pthread, result);
 
     return status;
 }

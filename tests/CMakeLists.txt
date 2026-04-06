@@ -23,3 +23,4 @@ endfunction()
 
 #---------------------------------Tests-----------------------------------------
 pal_add_tests(test_pal_status)
+pal_add_tests(test_pal_thread)

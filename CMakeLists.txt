@@ -63,11 +63,6 @@ option(PAL_BUILD_TESTS "Builds the unit tests." ON)
 #-------------------------------------------------------------------------------
 add_library(pal_compile_options INTERFACE)
 
-target_include_directories(pal_compile_options
-    INTERFACE
-        ${CMAKE_CURRENT_BINARY_DIR}/include    
-)
- 
 target_compile_options(pal_compile_options
     INTERFACE
         $<$<C_COMPILER_ID:GNU,Clang>:

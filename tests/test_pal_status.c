@@ -2,7 +2,7 @@
 /**
  * @file test_pal_status.c
  * @author Abigail Goodwin (abby.goodwin@outlook.com)
- * @brief Tests the PAL Status library.
+ * @brief Tests the PAL Status library for Linux.
  * @version 0.1
  * @date 2026-04-04
  *

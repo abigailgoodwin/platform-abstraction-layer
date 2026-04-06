@@ -9,12 +9,16 @@
 add_library(PAL STATIC)
 
 target_include_directories(PAL
-    PUBLIC ${PROJECT_SOURCE_DIR}/include
-    PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
+    PUBLIC
+        ${PROJECT_SOURCE_DIR}/include
+        ${PROJECT_BINARY_DIR}/include
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 target_link_libraries(PAL
-    PRIVATE pal_compile_options
+    PRIVATE
+        pal_compile_options
 )
 
 #-------------------------------------------------------------------------------

@@ -32,7 +32,7 @@ extern "C"
  * @brief Typedef for the entry point/function pointer used in threads.
  *
  */
-typedef void (*pal_thread_func_t)(void* arg);
+typedef void* (*pal_thread_func_t)(void* arg);
 
 /**
  * @brief Defines the thread options/attributes data structure.
@@ -53,6 +53,7 @@ typedef struct pal_thread_attrs_t
  */
 typedef struct pal_thread_t
 {
+    pal_thread_attrs_t attributes; /* The thread's attributes. */
     _Alignas(max_align_t) uint8_t _tdata[PAL_THREAD_SIZE]; /** Contains the
                                         underlying thread data structure. */
 } pal_thread_t;
@@ -71,11 +72,9 @@ pal_status_t pal_thread_attr_init(pal_thread_attrs_t* const attrs);
  * @brief Initializes the thread struct using the given attributes.
  *
  * @param thread The thread to initialize.
- * @param attrs The attributes to use.
  * @return pal_status_t OK if successful, otherwise returns the generated error.
  */
-pal_status_t pal_thread_init(pal_thread_t* const thread,
-                             const pal_thread_attrs_t* const attrs);
+pal_status_t pal_thread_init(pal_thread_t* const thread);
 
 /**
  * @brief Spawns the given thread.
@@ -89,9 +88,10 @@ pal_status_t pal_thread_create(pal_thread_t* const thread);
  * @brief Waits on the given thread for it to exit its routine.
  *
  * @param thread The thread to join.
+ * @param result The pointer to set to the function's return.
  * @return pal_status_t OK if successful, otherwise returns the generated error.
  */
-pal_status_t pal_thread_join(pal_thread_t* const thread);
+pal_status_t pal_thread_join(pal_thread_t* const thread, void** result);
 
 #ifdef __cplusplus
 }
