@@ -45,3 +45,6 @@ build/
 
 # Ignore .vscode artifacts (for now):
 .vscode
+
+# Ignore the docs dir:
+docs/

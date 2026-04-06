@@ -45,8 +45,8 @@ typedef enum pal_status_code_t
  */
 typedef struct pal_status_t
 {
-    pal_status_code_t status;
-    char message[PAL_MAX_STATUS_MSG_LEN];
+    pal_status_code_t status;             /** The status code. */
+    char message[PAL_MAX_STATUS_MSG_LEN]; /** A description of the error. */
 } pal_status_t;
 
 /**

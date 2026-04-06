@@ -26,6 +26,11 @@ extern "C"
 /*-------------------------------Definitions----------------------------------*/
 
 #ifndef NULL
+
+/**
+ * @brief Defines NULL without relying on external header includes.
+ *
+ */
 #define NULL ((void *)0)
 #endif
 

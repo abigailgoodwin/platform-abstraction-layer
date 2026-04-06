@@ -47,7 +47,7 @@ typedef struct pal_thread_attrs_t
 {
     char name[PAL_THREAD_NAME_MAX_LEN]; /** The name of the thread. */
     pal_thread_func_t function;         /** Routine/function to run. */
-    void* args;        /* The arguments to pass to the function.*/
+    void* args;        /** The arguments to pass to the function. */
     bool joinable;     /** Whether or not the thread is joinable. */
     size_t stack_size; /** The thread's stack size. */
 } pal_thread_attrs_t;
@@ -58,7 +58,7 @@ typedef struct pal_thread_attrs_t
  */
 typedef struct pal_thread_t
 {
-    pal_thread_attrs_t attributes; /* The thread's attributes. */
+    pal_thread_attrs_t attributes; /** The thread's attributes. */
     _Alignas(max_align_t) uint8_t _tdata[PAL_THREAD_SIZE]; /** Contains the
                                         underlying thread data structure. */
 } pal_thread_t;
