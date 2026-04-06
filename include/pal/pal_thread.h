@@ -45,8 +45,8 @@ typedef void* (*pal_thread_func_t)(void* arg);
  */
 typedef struct pal_thread_attrs_t
 {
-    char tname[PAL_THREAD_NAME_MAX_LEN]; /** The name of the thread. */
-    pal_thread_func_t function;          /** Routine/function to run. */
+    char name[PAL_THREAD_NAME_MAX_LEN]; /** The name of the thread. */
+    pal_thread_func_t function;         /** Routine/function to run. */
     void* args;        /* The arguments to pass to the function.*/
     bool joinable;     /** Whether or not the thread is joinable. */
     size_t stack_size; /** The thread's stack size. */

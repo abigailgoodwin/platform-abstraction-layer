@@ -45,7 +45,7 @@ pal_status_t pal_thread_attr_init(pal_thread_attrs_t* const attrs)
     // Initialize our attrs struct to default values:
     for (size_t index = 0; index < PAL_THREAD_NAME_MAX_LEN; index++)
     {
-        attrs->tname[index] = '\0';
+        attrs->name[index] = '\0';
     }
 
     attrs->function = NULL;
