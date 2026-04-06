@@ -20,6 +20,7 @@
 
 // C Includes:
 #include <string.h>
+
 /*---------------------------------Globals------------------------------------*/
 /**
  * @brief Used to track whether or not the test thread actually executed.
@@ -48,6 +49,27 @@ void tearDown(void)
 }
 
 /**
+ * @brief Verifies that PAL thread functions are properly protected against NULL
+ * values.
+ *
+ */
+void test_pal_thread_null_protections(void)
+{
+    // Call our initialize functions and verify that they reject the inputs:
+    pal_status_t status = pal_thread_attr_init(NULL);
+    TEST_ASSERT_NOT_EQUAL(status.status, PAL_OK);
+
+    status = pal_thread_init(NULL);
+    TEST_ASSERT_NOT_EQUAL(status.status, PAL_OK);
+
+    status = pal_thread_create(NULL);
+    TEST_ASSERT_NOT_EQUAL(status.status, PAL_OK);
+
+    status = pal_thread_join(NULL, NULL);
+    TEST_ASSERT_NOT_EQUAL(status.status, PAL_OK);
+}
+
+/**
  * @brief Verifies that PAL thread attributes are properly intialized.
  *
  */
@@ -65,7 +87,58 @@ void test_pal_thread_attr_init(void)
     TEST_ASSERT_NULL(attrs.function);
     TEST_ASSERT_NULL(attrs.args);
     TEST_ASSERT_TRUE(attrs.joinable);
-    TEST_ASSERT_EQUAL(attrs.stack_size, 0x1000);
+    TEST_ASSERT_EQUAL(attrs.stack_size, PAL_THREAD_MIN_STACK_SIZE);
+}
+
+/**
+ * @brief Verifies that PAL threads are properly initialized.
+ *
+ */
+void test_pal_thread_init(void)
+{
+    // Create a PAL thread and populate it with garbage:
+    pal_thread_t thread;
+    memset(&thread, 3, sizeof(pal_thread_t));
+
+    // Call initialize:
+    pal_status_t status = pal_thread_init(&thread);
+
+    // Verify that our thread's buffer was cleared:
+    TEST_ASSERT_EQUAL(status.status, PAL_OK);
+    TEST_ASSERT_EACH_EQUAL_INT8(0, thread._tdata, PAL_THREAD_SIZE);
+}
+
+/**
+ * @brief Test routine for verifying that we can spawn threads.
+ *
+ * @param args N/A
+ * @return void* N/A
+ */
+void* test_thread_routine(void* args) { thread_executed = true; }
+
+/**
+ * @brief Verifies that PAL threads can be properly spawned and joined.
+ *
+ */
+void test_pal_thread_create_join(void)
+{
+    // Create a PAL thread and initialize it:
+    pal_thread_t thread;
+    pal_status_t status = pal_thread_init(&thread);
+    TEST_ASSERT_EQUAL(status.status, PAL_OK);
+
+    // Set the thread attributes:
+    thread.attributes.function = test_thread_routine;
+
+    // Create our thread and then join it:
+    status = pal_thread_create(&thread);
+    TEST_ASSERT_EQUAL(status.status, PAL_OK);
+
+    status = pal_thread_join(&thread, NULL);
+    TEST_ASSERT_EQUAL(status.status, PAL_OK);
+
+    // Check our flag to make sure the thread routine actually ran:
+    TEST_ASSERT_TRUE(thread_executed);
 }
 
 /**
@@ -76,6 +149,9 @@ void test_pal_thread_attr_init(void)
 int main(void)
 {
     UNITY_BEGIN();
+    RUN_TEST(test_pal_thread_null_protections);
     RUN_TEST(test_pal_thread_attr_init);
+    RUN_TEST(test_pal_thread_init);
+    RUN_TEST(test_pal_thread_create_join);
     return UNITY_END();
 }

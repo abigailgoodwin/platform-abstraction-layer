@@ -29,7 +29,7 @@ usage()
 # Read in CLI args:
 parse_args()
 {
-    while getopts ":t" opt; do
+    while getopts ":tv" opt; do
         case ${opt} in
             t)
                 shift $((OPTIND - 1))

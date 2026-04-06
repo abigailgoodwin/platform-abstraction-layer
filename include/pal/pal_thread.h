@@ -29,6 +29,11 @@ extern "C"
 #define PAL_THREAD_NAME_MAX_LEN 32
 
 /**
+ * @brief Defines the minimum stack size for a task.
+ */
+#define PAL_THREAD_MIN_STACK_SIZE 0x4000
+
+/**
  * @brief Typedef for the entry point/function pointer used in threads.
  *
  */

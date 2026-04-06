@@ -20,6 +20,7 @@
 // Linux Includes:
 #include <pthread.h>
 #include <string.h>
+
 /*---------------------------Compile-Time Checks------------------------------*/
 static_assert(sizeof(pthread_t) <= PAL_THREAD_SIZE,
               "PAL_THREAD_SIZE is too small for pthread_t on this platform.");
@@ -50,7 +51,7 @@ pal_status_t pal_thread_attr_init(pal_thread_attrs_t* const attrs)
     attrs->function = NULL;
     attrs->args = NULL;
     attrs->joinable = true;
-    attrs->stack_size = 0x1000;
+    attrs->stack_size = PAL_THREAD_MIN_STACK_SIZE;
 
     return status;
 }
