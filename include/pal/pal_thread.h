@@ -1,10 +1,13 @@
 /*----------------------------------------------------------------------------*/
 /**
- * Copyright (c) 2026 Abigail Goodwin. All right reserved.
- * SPDX-License-Identifier: MIT
- *
  * @file pal_thread.h
+ * @author Abigail Goodwin (abby.goodwin@outlook.com)
  * @brief Defines the interface for threading.
+ * @version 0.1
+ * @date 2026-04-04
+ *
+ * @copyright Copyright (c) 2026
+ *
  */
 /*----------------------------------------------------------------------------*/
 #ifndef PAL_THREAD_H

@@ -7,4 +7,5 @@ target_sources(PAL
     PRIVATE
         pal_status.c
         pal_thread.c
+        pal_log.c
 )

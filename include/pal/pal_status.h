@@ -40,13 +40,13 @@ typedef enum pal_status_code_t
 } pal_status_code_t;
 
 /**
- * @brief Defines the common error type used across the system.
+ * @brief Defines the common status/error type used across the system.
  *
  */
 typedef struct pal_status_t
 {
     pal_status_code_t status;             /** The status code. */
-    char message[PAL_MAX_STATUS_MSG_LEN]; /** A description of the error. */
+    char message[PAL_MAX_STATUS_MSG_LEN]; /** A description of the status. */
 } pal_status_t;
 
 /**
